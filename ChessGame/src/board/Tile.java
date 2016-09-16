@@ -1,5 +1,13 @@
 package board;
 
-public class Tile {
-
+public abstract class Tile {
+	
+	int xCoord, yCoord;
+	
+	Tile (int xCoord, int yCoord) {
+		
+		this.xCoord = xCoord;
+		this.yCoord = yCoord;
+	}
+	
 }
