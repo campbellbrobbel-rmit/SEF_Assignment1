@@ -4,9 +4,11 @@ import pieces.Piece;
 
 public final class FullTile extends Tile {
 
-	public FullTile(int xCoord, int yCoord) {
+	Piece tilePiece;
+	
+	public FullTile(int xCoord, int yCoord, Piece tilePiece) {
 		super(xCoord, yCoord);
-		
+		this.tilePiece = tilePiece;
 	}
 
 	
@@ -16,7 +18,7 @@ public final class FullTile extends Tile {
 
 	
 	public Piece getPiece() {
-		return null;
+		return this.tilePiece;
 	}
 
 }
