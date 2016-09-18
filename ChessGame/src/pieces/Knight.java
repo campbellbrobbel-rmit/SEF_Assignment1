@@ -20,7 +20,7 @@ public class Knight extends Piece {
 		
 		System.out.println("\tPiece Type: Knight");
 		System.out.printf("\tPiece Color: %s\n", this.color);
-		System.out.printf("\t\tPiece Board Index: %d\n", this.boardIndex);
+		System.out.printf("\t\tPiece Board Index: %d\n\n", this.boardIndex);
 		
 	}
 	

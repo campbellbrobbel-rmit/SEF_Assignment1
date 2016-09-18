@@ -21,7 +21,7 @@ public class Player {
 		piecesArray[2] = new Knight(color, 33);	
 		piecesArray[3] = new Knight(color, 32);
 		piecesArray[4] = new Bishop(color, 31);
-		piecesArray[5] = new Rook(color, 20);
+		piecesArray[5] = new Rook(color, 30);
 		
 		}
 		else {
@@ -36,6 +36,11 @@ public class Player {
 		}
 	}
 	
+	public Piece[] getPiecesArray() {
+		
+		return this.piecesArray;
+	}
+	
 	public void printPlayer() {
 		
 		System.out.printf("Player Name: %s\n", this.name);
@@ -44,7 +49,6 @@ public class Player {
 		for (Piece piece : piecesArray) {
 			
 			piece.printPiece();
-			System.out.println();
 	
 		}
 		

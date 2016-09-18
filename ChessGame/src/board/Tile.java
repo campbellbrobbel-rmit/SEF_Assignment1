@@ -2,7 +2,7 @@ package board;
 
 import pieces.Piece;
 
-public abstract class Tile {
+public class Tile {
 	
 	/* 
 	 * Each tile will have an X/Y co-ordinate, as well as an int representing 
@@ -12,6 +12,8 @@ public abstract class Tile {
 	protected final int xCoord;
 	protected final int yCoord;
 	protected final int boardIndex;
+	private Piece tilePiece = null;
+	private boolean occupied = false;
 	
 	Tile (int xCoord, int yCoord, int boardIndex) {
 		
@@ -35,8 +37,43 @@ public abstract class Tile {
 		return this.boardIndex;
 	}
 	
-	public abstract boolean isTileEmpty();
-	public abstract Piece getPiece();
-	public abstract void printTile();
+	public boolean isOccupied() {
+		
+		return this.occupied;
+		
+	}
+	public void addPieceToTile(Piece piece) {
+		
+		this.tilePiece = piece;
+		this.occupied = true;
+		
+	}
+	public Piece getPiece() {
+		
+		return this.tilePiece;
+		
+	}
+	public void printTile() {
+		
+		if(this.tilePiece == null) {
+			
+			System.out.println("Empty Tile");
+
+		}
+		else {
+			
+			System.out.println("Occupied Tile");
+
+		}
+		
+		System.out.printf("x Co-Ordinate: %d, y Co-Ordinate: %d\n", this.xCoord, this.yCoord);
+		System.out.printf("Tile Board Index: %d\n\n", this.getBoardIndex());
+		
+		if(this.occupied) {
+			
+			this.tilePiece.printPiece();
+
+		}
+	}
 	
 }

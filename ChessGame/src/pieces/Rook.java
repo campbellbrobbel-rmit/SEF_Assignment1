@@ -15,7 +15,7 @@ public class Rook extends Piece {
 
 		System.out.println("\tPiece Type: Rook");
 		System.out.printf("\tPiece Color: %s\n", this.color);
-		System.out.printf("\t\tPiece Board Index: %d\n", this.boardIndex);
+		System.out.printf("\t\tPiece Board Index: %d\n\n", this.boardIndex);
 
 		
 		
