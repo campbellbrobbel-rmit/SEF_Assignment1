@@ -32,6 +32,12 @@ public class Tile {
 		return this.yCoord;
 	}
 	
+	public void applyMove() {
+		
+		this.tilePiece = null;
+		this.occupied = false;
+	}
+	
 	public int getBoardIndex() {
 		
 		return this.boardIndex;
@@ -47,6 +53,11 @@ public class Tile {
 		this.tilePiece = piece;
 		this.occupied = true;
 		
+	}
+	public void removePieceFromTile() {
+		
+		this.tilePiece = null;
+		this.occupied = false;
 	}
 	public Piece getPiece() {
 		

@@ -1,56 +1,80 @@
 package player;
 
 import pieces.*;
+
+import java.util.*;
+
+import board.*;
 import utilities.Color;
+
 
 public class Player {
 	
 	private String name;
 	private Color color;
-	private Piece piecesArray[] = new Piece[6];
+	private List<Move>moveList = new ArrayList<Move>();
 	
 	public Player(String name, Color color) {
 		
 		this.name = name;
 		this.color = color;
 		
-		if(this.color == Color.BLACK) {
-			
-		piecesArray[0] = new Rook(color, 35);
-		piecesArray[1] = new Bishop(color, 34);
-		piecesArray[2] = new Knight(color, 33);	
-		piecesArray[3] = new Knight(color, 32);
-		piecesArray[4] = new Bishop(color, 31);
-		piecesArray[5] = new Rook(color, 30);
+	}
+	public void makeMove (Board board, int startIndex, int endIndex) {
 		
-		}
-		else {
+		Tile tempTile = board.getBoardTileList().get(startIndex);
+		
+		for(int potentialTileLocation : tempTile.getPiece().possibleMoveLocations(tempTile)) {
 			
-			piecesArray[0] = new Rook(color, 5);
-			piecesArray[1] = new Bishop(color, 4);
-			piecesArray[2] = new Knight(color, 3);	
-			piecesArray[3] = new Knight(color, 2);
-			piecesArray[4] = new Bishop(color, 1);
-			piecesArray[5] = new Rook(color, 0);
+			/* Compare the end index with a list of possible index's that the piece can move to*/
+			if (potentialTileLocation == endIndex - startIndex) {
+				
+				if(!(board.getBoardTileList().get(endIndex).isOccupied())) {
+					
+					Move move = new Move(tempTile.getPiece(), null, potentialTileLocation);
+					this.addMoveToList(move);
+					board.applyMove(move);
+				
+				}
+				else if (board.getBoardTileList().get(endIndex).getPiece().getColor() != this.color) {
+					
+					/*
+					 *  IF THE DESTINATION TILE CONTAINS A PIECE OF THE OPPOSITE COLOR AS THE PLAYER,
+					 *  IT IS A VALID MOVE.
+					 *  
+					 */
+					
+				}
+				else {
+					
+					// OTHERWISE, NOT A VALID MOVE
+				}
+			}
 			
+			else {
+				
+				/* 
+				 * NOT A VALID MOVE
+				 */
+				
+			}
 		}
+		
+		
+	}
+	public Move getMoveFromList(int index) {
+		
+		return moveList.get(index);	
 	}
 	
-	public Piece[] getPiecesArray() {
+	public void addMoveToList(Move move) {
 		
-		return this.piecesArray;
+		this.moveList.add(move);
 	}
-	
 	public void printPlayer() {
 		
 		System.out.printf("Player Name: %s\n", this.name);
 		System.out.printf("Player Color: %s\n\n", this.color);
-
-		for (Piece piece : piecesArray) {
-			
-			piece.printPiece();
-	
-		}
 		
 	}
 	

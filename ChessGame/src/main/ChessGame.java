@@ -25,6 +25,26 @@ public class ChessGame {
 		
 		Board board = new Board(6,6);
 		board.initPlayerPieces(player1, player2);
+		board.printToConsole();
+		
+	
+		
+		/* Player currentPlayer = player1;
+		Player otherPlayer;
+		
+		if(currentPlayer == player1) {
+			
+			otherPlayer = player2;
+		
+
+		}
+		else {
+			
+			otherPlayer = player1;
+
+		} */
+		
+		player1.makeMove(board, 2, 10);
 		board.printBoard();
 		board.printToConsole();
 		
