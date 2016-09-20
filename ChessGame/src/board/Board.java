@@ -61,7 +61,9 @@ public class Board {
 		return this.boardTileList;
 	}
 	
-	public void initPlayerPieces(Player player1, Player player2) {
+	
+	/* Creates the original player pieces and adds them to the appropriate tile. */
+	public void initPlayerPieces() {
 		
 		Color black = Color.BLACK;
 		boardTileList.get(30).addPieceToTile(new Rook(black, 30));
@@ -72,7 +74,6 @@ public class Board {
 		boardTileList.get(35).addPieceToTile(new Rook(black, 35));
 		
 		Color white = Color.WHITE;
-		
 		boardTileList.get(0).addPieceToTile(new Rook(white, 0));
 		boardTileList.get(1).addPieceToTile(new Bishop(white, 1));
 		boardTileList.get(2).addPieceToTile(new Knight(white, 2));
