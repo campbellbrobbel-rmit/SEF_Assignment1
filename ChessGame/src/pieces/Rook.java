@@ -1,6 +1,7 @@
 package pieces;
+
 import board.*;
-import utilities.Color;
+import utilities.*;
 
 public class Rook extends Piece {
 

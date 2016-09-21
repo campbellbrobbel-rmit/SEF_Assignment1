@@ -1,4 +1,5 @@
 package pieces;
+
 import java.awt.Point;
 
 import board.*;
@@ -115,7 +116,4 @@ public abstract class Piece {
 	protected abstract boolean pathIsClear();
 	
 	public abstract void printPiece();
-	
-	
-	
 }

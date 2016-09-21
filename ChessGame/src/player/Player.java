@@ -1,13 +1,11 @@
 package player;
 
-import pieces.*;
-
 import java.awt.Point;
 import java.util.*;
 
+import pieces.*;
 import board.*;
-import utilities.Color;
-
+import utilities.*;
 
 public class Player {
 	
@@ -28,35 +26,34 @@ public class Player {
 	 */
 	public boolean makeMove (Board board, Point startPoint, Point endPoint) {
 		
-			Piece movingPiece = board.getTileArray()[(int)startPoint.getX()][(int)startPoint.getY()].getPiece();
-	
-			//Check If it is a valid move.
-			if(movingPiece.isValidMove(board, startPoint, endPoint)) {
+		Piece movingPiece = board.getTileArray()[(int)startPoint.getX()][(int)startPoint.getY()].getPiece();
+
+		//Check If it is a valid move.
+		if(movingPiece.isValidMove(board, startPoint, endPoint)) {
+			
+			//If the destination tile is occupied with an enemy piece.
+			if (board.getTileArray()[(int)startPoint.getX()][(int)startPoint.getY()].isOccupied()) {
 				
-				//If the destination tile is occupied with an enemy piece.
-				if (board.getTileArray()[(int)startPoint.getX()][(int)startPoint.getY()].isOccupied()) {
-					
-					Piece enemyPiece = board.getTileArray()[(int)endPoint.getX()][(int)endPoint.getY()].getPiece();
-					Move move = new Move(movingPiece, enemyPiece, endPoint);
-					this.addMoveToList(move);
-					board.applyMove(move);
-					
-					return true;
-				}
-				// If the destination tile is not occupied
+				Piece enemyPiece = board.getTileArray()[(int)endPoint.getX()][(int)endPoint.getY()].getPiece();
+				Move move = new Move(movingPiece, enemyPiece, endPoint);
+				this.addMoveToList(move);
+				board.applyMove(move);
 				
-				else {
-					
-					Move move = new Move(movingPiece, null, endPoint);
-					this.addMoveToList(move);
-					board.applyMove(move);
-					return true;
-				}
+				return true;
+			}
+			// If the destination tile is not occupied
+			
+			else {
 				
-				
+				Move move = new Move(movingPiece, null, endPoint);
+				this.addMoveToList(move);
+				board.applyMove(move);
+				return true;
 			}
 			
-	
+			
+		}
+			
 		return false;
 	}
 	
@@ -75,5 +72,4 @@ public class Player {
 		System.out.printf("Player Color: %s\n\n", this.color);
 		
 	}
-	
 }

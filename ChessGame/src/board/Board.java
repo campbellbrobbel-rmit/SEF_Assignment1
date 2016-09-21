@@ -1,14 +1,9 @@
 package board;
-import java.awt.Point;
-import java.util.*;
-import pieces.*;
 
-import pieces.Bishop;
-import pieces.Knight;
-import pieces.Piece;
-import pieces.Rook;
-import player.Player;
-import utilities.Color;
+import java.util.*;
+
+import pieces.*;
+import utilities.*;
 
 public class Board {
 
