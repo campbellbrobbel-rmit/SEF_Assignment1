@@ -1,4 +1,5 @@
 package board;
+import java.awt.Point;
 import java.util.*;
 import pieces.*;
 
@@ -13,6 +14,7 @@ public class Board {
 
 	private final int xSize, ySize, totalTiles;
 	List<Tile> boardTileList = new ArrayList<Tile>();
+	Tile[][] tileArray;
 	
 	
 	public Board(int xSize, int ySize) {
@@ -20,7 +22,8 @@ public class Board {
 		this.xSize = xSize;
 		this.ySize = ySize;
 		this.totalTiles = this.xSize * this.ySize;
-				
+		this.tileArray = new Tile[xSize][ySize];
+		
 		int totalTileCount = 0;
 
 		// Create a new Empty Tile Object and place them in the boardTileArray. 
@@ -30,8 +33,10 @@ public class Board {
 
 				for (int yCount = 0; yCount < this.ySize; yCount++) {
 					
-					Tile tile = new Tile(xCount, yCount, totalTileCount);
-					boardTileList.add(totalTileCount, tile); 
+					Tile tile = new Tile(xCount, yCount);
+					
+					this.tileArray[xCount][yCount] = tile;
+					//tileArray[xCount][yCount] = new Tile(xCount, yCount, yCount); 
 					totalTileCount++;
 					
 					
@@ -44,21 +49,38 @@ public class Board {
 		
 	}
 	
+	public int getXSize() {
+		
+		return this.xSize;
+	}
+	public int getYSize() {
+		
+		return this.ySize;
+	}
+	
 	// This method only deals with moving the piece on the board. Does not create a new Move object.
 	public void applyMove(Move move) {
 		
-	
+		/* 
+		 * if(this.tileArray[startXIndex][startYIndex].getPiece().isValidMove(new Point(endXIndex - startXIndex, endYIndex - startYIndex))
+		&& isOnBoard(startXIndex, startYIndex)) {
+				
+		} */
+		
 		// Add the Piece from the tile from the starting index to the Tile that matches the end Index. 
-		this.boardTileList.get(move.getEndIndex()).addPieceToTile(this.boardTileList.get(move.getStartIndex()).getPiece());
+		//this.boardTileList[(int)move.getEndPoint().getX()][(int)move.getEndPoint().getY()].setPiece((this.boardTileList[(int)move.getStartPoint().getX()][(int)move.getStartPoint().getY()].getPiece()));
+		this.tileArray[(int)move.getEndPoint().getX()][(int)move.getEndPoint().getY()].setPiece((this.tileArray[(int)move.getStartPoint().getX()][(int)move.getStartPoint().getY()].getPiece()));
+		//this.tileArray[endXIndex][endYIndex].addPieceToTile(this.tileArray[startXIndex][startYIndex].getPiece());
 		
 		//Update the starting tile to now be Empty. 
-		this.boardTileList.get(move.getStartIndex()).removePieceFromTile();
-		//this.boardTileList.get(move.getStartIndex()).removePieceFromTile();
+		//this.boardTileList.get(move.getStartIndex()).setPiece(null);
+		this.tileArray[(int)move.getStartPoint().getX()][(int)move.getStartPoint().getY()].setPiece(null);
+		//this.tileArray[startXIndex][startYIndex].removePieceFromTile();
 	}
 	
-	public List<Tile> getBoardTileList() {
+	public Tile[][] getTileArray() {
 		
-		return this.boardTileList;
+		return this.tileArray;
 	}
 	
 	
@@ -66,20 +88,20 @@ public class Board {
 	public void initPlayerPieces() {
 		
 		Color black = Color.BLACK;
-		boardTileList.get(30).addPieceToTile(new Rook(black, 30));
-		boardTileList.get(31).addPieceToTile(new Bishop(black, 31));
-		boardTileList.get(32).addPieceToTile(new Knight(black, 32));
-		boardTileList.get(33).addPieceToTile(new Knight(black, 33));
-		boardTileList.get(34).addPieceToTile(new Bishop(black, 34));
-		boardTileList.get(35).addPieceToTile(new Rook(black, 35));
+		tileArray[0][5].setPiece(new Rook(black, 0,5));
+		tileArray[1][5].setPiece(new Bishop(black, 1, 5));
+		tileArray[2][5].setPiece(new Knight(black, 2, 5));
+		tileArray[3][5].setPiece(new Knight(black, 3, 5));
+		tileArray[4][5].setPiece(new Bishop(black, 4, 5));
+		tileArray[5][5].setPiece(new Rook(black, 5, 5));
 		
 		Color white = Color.WHITE;
-		boardTileList.get(0).addPieceToTile(new Rook(white, 0));
-		boardTileList.get(1).addPieceToTile(new Bishop(white, 1));
-		boardTileList.get(2).addPieceToTile(new Knight(white, 2));
-		boardTileList.get(3).addPieceToTile(new Knight(white, 3));
-		boardTileList.get(4).addPieceToTile(new Bishop(white, 4));
-		boardTileList.get(5).addPieceToTile(new Rook(white, 5));
+		tileArray[0][0].setPiece(new Rook(white, 0, 0));
+		tileArray[1][0].setPiece(new Bishop(white, 1, 0));
+		tileArray[2][0].setPiece(new Knight(white, 2, 0));
+		tileArray[3][0].setPiece(new Knight(white, 3, 0));
+		tileArray[4][0].setPiece(new Bishop(white, 4, 0));
+		tileArray[5][0].setPiece(new Rook(white, 5, 0));
 	}
 	
 
@@ -114,16 +136,16 @@ public class Board {
 			
 			for (int xCount = 0; xCount < this.xSize; xCount++) {
 				
-				if (this.boardTileList.get(totalPrintedTiles).isOccupied()) {
+				if (this.tileArray[xCount][yCount].isOccupied()) {
 					
-					if(this.boardTileList.get(totalPrintedTiles).getPiece().getColor() == Color.BLACK) {
+					if(this.tileArray[xCount][yCount].getPiece().getColor() == Color.BLACK) {
 						
-						System.out.printf("| b%c", this.boardTileList.get(totalPrintedTiles).getPiece().getLetter());
+						System.out.printf("| b%c", this.tileArray[xCount][yCount].getPiece().getLetter());
 	
 					}
 					else {
 						
-						System.out.printf("| w%c", this.boardTileList.get(totalPrintedTiles).getPiece().getLetter());
+						System.out.printf("| w%c", this.tileArray[xCount][yCount].getPiece().getLetter());
 	
 					}
 					

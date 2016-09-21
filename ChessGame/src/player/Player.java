@@ -2,6 +2,7 @@ package player;
 
 import pieces.*;
 
+import java.awt.Point;
 import java.util.*;
 
 import board.*;
@@ -25,53 +26,38 @@ public class Player {
 	 * of the piece being moved and the endIndex is the position that the player wants to move them to.
 	 * It is going to return false if the move is invalid and true if it is a valid move.
 	 */
-	public boolean makeMove (Board board, int startIndex, int endIndex) {
+	public boolean makeMove (Board board, Point startPoint, Point endPoint) {
 		
-		Tile tempTile = board.getBoardTileList().get(startIndex);
-		
-		if(tempTile.getPiece() != null) {
-			
-			for(int potentialTileLocation : tempTile.getPiece().possibleMoveLocations(tempTile)) {
+			Piece movingPiece = board.getTileArray()[(int)startPoint.getX()][(int)startPoint.getY()].getPiece();
+	
+			//Check If it is a valid move.
+			if(movingPiece.isValidMove(board, startPoint, endPoint)) {
 				
-				/* Compare the end index with a list of possible index's that the piece can move to*/
-				if (potentialTileLocation == endIndex - startIndex) {
+				//If the destination tile is occupied with an enemy piece.
+				if (board.getTileArray()[(int)startPoint.getX()][(int)startPoint.getY()].isOccupied()) {
 					
-					if(!(board.getBoardTileList().get(endIndex).isOccupied())) {
-						
-						Move move = new Move(tempTile.getPiece(), null, potentialTileLocation);
-						this.addMoveToList(move);
-						board.applyMove(move);
-						
-						return true;
-					}
-					else if (board.getBoardTileList().get(endIndex).getPiece().getColor() != this.color) {
-						
-						/*
-						 *  IF THE DESTINATION TILE CONTAINS A PIECE OF THE OPPOSITE COLOR AS THE PLAYER,
-						 *  IT IS A VALID ATTACKING MOVE.
-						 *  
-						 */
-						return true;
-						
-					}
-					else {
-						
-						System.out.println("Invalid Move 1");
-						// OTHERWISE, NOT A VALID MOVE
-						return false;
-					}
+					Piece enemyPiece = board.getTileArray()[(int)endPoint.getX()][(int)endPoint.getY()].getPiece();
+					Move move = new Move(movingPiece, enemyPiece, endPoint);
+					this.addMoveToList(move);
+					board.applyMove(move);
+					
+					return true;
+				}
+				// If the destination tile is not occupied
+				
+				else {
+					
+					Move move = new Move(movingPiece, null, endPoint);
+					this.addMoveToList(move);
+					board.applyMove(move);
+					return true;
 				}
 				
 				
 			}
-		}
-		else {
 			
-			System.out.println("\nNot a valid piece. Please enter the co-rdinates of a piece.");
-			return false;
-		}
-		
-		return true;
+	
+		return false;
 	}
 	
 	public Move getMoveFromList(int index) {

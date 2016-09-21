@@ -5,9 +5,11 @@ import utilities.Color;
 
 public class Bishop extends Piece {
 
-	public Bishop(Color color, int boardIndex) {
+	private final static int[][] potentialLocations = {{1,1,-1,-1,2, 2,-2,-2,3,3,-3,-3,4, 4,-4,-4, 5,5,-5,-5,6, 6,-6,-6},{-1, 1,-1, 1,2,-2,2,-2,-3, 3,-3, 3,4,-4,4,-4,-5, 5,-5, 5,6,-6,6,-6}};
+	
+	public Bishop(Color color, int xCoord, int yCoord) {
 		
-		super(color, boardIndex);
+		super(color, xCoord, yCoord, Bishop.potentialLocations);
 		this.letter = 'B';
 	}
 
@@ -22,11 +24,12 @@ public class Bishop extends Piece {
 	}
 
 	@Override
-	public int[] possibleMoveLocations(Tile tile) {
-		
-		
-		return null;
+	protected boolean pathIsClear() {
+		// TODO Auto-generated method stub
+		return false;
 	}
+
+	
 	
 	
 	

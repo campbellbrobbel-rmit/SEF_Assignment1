@@ -1,16 +1,18 @@
 package pieces;
 
+import java.awt.Point;
+
 public class Move {
 
-	private final int startIndex, endIndex;
+	private final Point startPoint, endPoint;
 	
 	private Piece piece;
 	private Piece attackedPiece = null;
 	
-	public Move(Piece piece, Piece attackedPiece, int moveOffset) {
+	public Move(Piece piece, Piece attackedPiece, Point destinationPoint) {
 		
-		this.startIndex = piece.boardIndex;
-		this.endIndex = startIndex + moveOffset;
+		this.startPoint = piece.boardPoint;
+		this.endPoint = destinationPoint;
 		this.piece = piece;
 		
 		if (attackedPiece != null) {
@@ -23,14 +25,14 @@ public class Move {
 		}
 	}
 	
-	public int getStartIndex() {
+	public Point getStartPoint() {
 		
-		return this.startIndex;
+		return this.startPoint;
 		
 	}
 	
-	public int getEndIndex() {
+	public Point getEndPoint() {
 		
-		return this.endIndex;
+		return this.endPoint;
 	}
 }

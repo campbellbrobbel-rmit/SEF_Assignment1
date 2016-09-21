@@ -4,9 +4,12 @@ import utilities.Color;
 
 public class Rook extends Piece {
 
-	public Rook(Color color, int boardIndex) {
+	private final static int[][] potentialLocations = {{1},{-30,-24,-18,-12,-6,-5,-4,-3,-2,-1,1,2,3,4,5,6,12,18,24,30}};
+	
+	public Rook(Color color, int xCoord, int yCoord) {
 		
-		super(color, boardIndex);
+		
+		super(color, xCoord, yCoord, Rook.potentialLocations);
 		this.letter = 'R';
 
 	}
@@ -23,8 +26,10 @@ public class Rook extends Piece {
 	}
 
 	@Override
-	public int[] possibleMoveLocations(Tile tile) {
-		return null;
+	protected boolean pathIsClear() {
+		// TODO Auto-generated method stub
+		return false;
 	}
+
 
 }

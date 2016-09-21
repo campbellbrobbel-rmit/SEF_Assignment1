@@ -1,5 +1,7 @@
 package board;
 
+import java.awt.Point;
+
 import pieces.Piece;
 
 public class Tile {
@@ -9,56 +11,53 @@ public class Tile {
 	 * the index it is placed in inside of board
 	 */
 	
-	protected final int xCoord;
-	protected final int yCoord;
-	protected final int boardIndex;
+	
+	protected final Point boardPoint;
 	private Piece tilePiece = null;
 	private boolean occupied = false;
 	
-	Tile (int xCoord, int yCoord, int boardIndex) {
+	Tile (int xCoord, int yCoord) {
 		
-		this.boardIndex = boardIndex;
-		this.xCoord = xCoord;
-		this.yCoord = yCoord;
+		this.boardPoint = new Point(xCoord, yCoord);
+		
 	}
 	
 	public int getXCoord() {
 				
-		return this.xCoord;
+		return (int) this.boardPoint.getX();
 	}
 	
 	public int getYCoord() {
 		
-		return this.yCoord;
-	}
+		return (int) this.boardPoint.getY();	}
 	
 	public void applyMove() {
 		
 		this.tilePiece = null;
 		this.occupied = false;
 	}
-	
-	public int getBoardIndex() {
-		
-		return this.boardIndex;
-	}
+
 	
 	public boolean isOccupied() {
 		
 		return this.occupied;
 		
 	}
-	public void addPieceToTile(Piece piece) {
+	public void setPiece(Piece piece) {
 		
 		this.tilePiece = piece;
-		this.occupied = true;
+		if (piece == null) {
+			
+			this.occupied = false;
+		}
+		else {
+			
+			this.occupied = true;
+			
+		}
 		
 	}
-	public void removePieceFromTile() {
-		
-		this.tilePiece = null;
-		this.occupied = false;
-	}
+	
 	public Piece getPiece() {
 		
 		return this.tilePiece;
@@ -77,8 +76,7 @@ public class Tile {
 
 		}
 		
-		System.out.printf("x Co-Ordinate: %d, y Co-Ordinate: %d\n", this.xCoord, this.yCoord);
-		System.out.printf("Tile Board Index: %d\n\n", this.getBoardIndex());
+		System.out.printf("x Co-Ordinate: %d, y Co-Ordinate: %d\n", (int)this.boardPoint.getX(), (int)this.boardPoint.getY());
 		
 		if(this.occupied) {
 			
